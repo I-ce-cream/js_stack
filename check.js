@@ -1,29 +1,29 @@
 function Stack(){
     var stack = [];
     var minlist = [];
-
+    
     this.size = function(){
         return stack.length;
     }
-
+    
     this.is_empty = function(){
         return this.size() == 0;
     }
 
     this.push = function(data){
         stack.push(data);
-        if(this.mintop || this.mintop >= data){
+        if(!this.mintop() || this.mintop() >= data){
             minlist.push(data);
         }
     }
 
     this.pop = function(){
-        var num
+        var num;
         if(this.is_empty()){
             return null;
         }else{
             num = stack.pop();
-            if(this.mintop == num){
+            if(num == this.mintop()){
                 minlist.pop();
             }
             return num;
@@ -34,7 +34,7 @@ function Stack(){
         if(this.is_empty()){
             return null;
         }else{
-            return stack[this.size() - 1];
+            return stack[this.size()-1];
         }
     }
 
@@ -42,7 +42,7 @@ function Stack(){
         if(minlist.length == 0){
             return null;
         }else{
-            return minlist[minlist.length - 1];
+            return minlist[minlist.length-1];
         }
     }
 
@@ -59,18 +59,30 @@ function Stack(){
     }
 }
 
+function Check(str){
+    var s = new Stack();
+    for(var i in str){
+        if(str[i] == "("){
+            s.push(str[i]);
+        }
+        if(str[i] == ")"){
+            if(s.pop() != "("){
+                return false;
+            }
+        }
+    }
+    return s.is_empty();
+}
 
-var s = new Stack();
-
-
-s.push(4);
-s.push(2);
-s.push(3);
-s.push(2);
-s.push(10);
-s.push(2);
+s = new Stack();
+s.push(7);
+s.push(5);
+s.push(1);
+s.push(1);
 s.pop();
+s.push(2);
+
 console.log(s.min());
-//console.log(s.pop());
-//s.clear();
-//s.print();
+
+
+//console.log(Check(")"));
