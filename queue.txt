@@ -1,0 +1,41 @@
+function Queue(){
+    var addlist = new Stack();
+    var removelist = new Stack();
+    var num;
+    
+    this.size = function(){
+        return (addlist.size() + removelist.size());
+    }
+
+    this.is_empty = function(){
+        return this.size() == 0;
+    }
+
+    this.enqueue = function(data){
+        addlist.push(data);
+    }
+
+    this.dequeue = function(){
+        if(removelist.size() != 0){
+            return removelist.pop();
+        }else{
+            if(is_empty()){
+                return null;
+            }else{
+                while(addlist.size() != 0){
+                    removelist.push(addlist.pop());   
+                }
+                return removelist.pop();
+            }
+        }
+    }
+
+    this.clear = function(){
+        addlist.clear();
+	removelist.clear();
+    }
+
+    this.head = function(){
+	
+    }
+}
