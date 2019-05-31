@@ -36,80 +36,99 @@ function Stack(){
     this.print = function(){
         console.log(stack);
     }
+    
+    this.bottom = function(){
+        if(this.is_empty()){
+            return null;
+        }else{
+            return stack[0];
+        }
+    }
 }
 
 
 function Queue(){
-    var pushlist = new Stack();
-
+    var addlist = new Stack();
+    var removelist = new Stack();
+    var num;
+    
     this.size = function(){
-        return pushlist.size();
+        return (addlist.size() + removelist.size());
     }
 
-    function is_empty(){
-        return this.size == 0;
+    this.is_empty = function(){
+        return this.size() == 0;
     }
 
-    this.add = function(data){
-        pushlist.push(data);
+    this.enqueue = function(data){
+        addlist.push(data);
     }
 
-    this.shift = function(){
-        if(is_empty()){
-            return null;
+    this.dequeue = function(){
+        if(removelist.size() != 0){
+            return removelist.pop();
         }else{
-            let poplist = new Stack();
-            let num;
-            while(this.size() != 1){
-                poplist.push(pushlist.pop());
+            if(this.is_empty()){
+                return null;
+            }else{
+                while(addlist.size() != 0){
+                    removelist.push(addlist.pop());   
+                }
+                return removelist.pop();
             }
-            num = pushliet.pop();
-            while(!poplist.is_empty()){
-                pushlist.push(poplist.pop());
-            }
-            return num;
         }
     }
 
     this.clear = function(){
-        pushlist.clear();
+        addlist.clear();
+	    removelist.clear();
     }
 
-    this.front = function(){
-        if(is_empty()){
-            return null;
+    this.head = function(){
+        if(removelist.size() != 0){
+            return removelist.top();
         }else{
-            let poplist = new Stack();
-            let num;
-            while(this.size() != 1){
-                poplist.push(pushlist.pop());
-            }
-            num = pushliet.pop();
-            poplist.push(num);
-            while(!poplist.is_empty()){
-                pushlist.push(poplist.pop());
-            }
-            return num;
+            return addlist.bottom();
         }
     }
 
-    this.back = function(){
-        if(is_empty()){
-            return null;
+    this.last = function(){
+        if(addlist.size() != 0){
+            return addlist.top();
         }else{
-            let num;
-            num = pushlist.pop();
-            pushlist.push(num);
-            return num;
+            return removelist.bottom();
         }
     }
 }
 
-s = new Queue();
+function Hoop(count,x){
+    var hoop = new Queue();
+    var num = 1;
 
-s.add(4);
-s.add(6);
-s.add(8);
-s.add(3);
-console.log(s.front());
-console.log(s.back());
+    for(let i = 1;i <= count;i++){
+        hoop.enqueue(i);
+    }
+
+    while(hoop.size() != 1){
+        if(num == x){
+            hoop.dequeue();
+            num = 1;
+        }else{
+            hoop.enqueue(hoop.dequeue());
+            num += 1;
+        }
+    }
+
+    console.log(hoop.head());
+}
+
+Hoop(11,3);
+
+// s = new Queue();
+
+// s.add(4);
+// s.add(6);
+// s.add(8);
+// s.add(3);
+// console.log(s.front());
+// console.log(s.back());
