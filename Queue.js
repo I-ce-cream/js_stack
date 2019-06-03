@@ -104,7 +104,6 @@ function Queue(){
 function Hoop(count,x){
     var hoop = new Queue();
     var num = 1;
-
     for(let i = 1;i <= count;i++){
         hoop.enqueue(i);
     }
@@ -112,17 +111,15 @@ function Hoop(count,x){
     while(hoop.size() != 1){
         if(num == x){
             hoop.dequeue();
-            num = 1;
         }else{
             hoop.enqueue(hoop.dequeue());
-            num += 1;
         }
     }
 
     console.log(hoop.head());
 }
 
-Hoop(11,3);
+Hoop(10,3);
 
 // s = new Queue();
 
@@ -132,3 +129,33 @@ Hoop(11,3);
 // s.add(3);
 // console.log(s.front());
 // console.log(s.back());
+
+
+
+// function Test(count,num){
+//     var List = new Queue();
+//     var x = 1;
+        
+//     for(var i = 1;i<=count;i++){
+//         List.enqueue(i);
+//     }
+
+	
+//     while(List.size() != 1){
+//         if(x == num){
+//             List.dequeue();
+//                 x = 1;
+//         }else{
+//             List.enqueue(List.dequeue());
+//             x += 1;
+//         }        
+//     }
+
+//     return List.head();
+// }
+
+
+// console.log(Test(10,3));
+
+//队列实现斐波那契数列
+//杨辉三角形 队列
