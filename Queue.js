@@ -216,41 +216,12 @@ function fib(x){
     list.enqueue(1);
    
     for (let i = 0; i <= x - 2; i++){
-        list.enqueue(list.head() + list.last());
-        list.dequeue();
+        list.enqueue(list.dequeue() + list.head());
     }
     return list.head();
 }
 
-//console.log(fib(6));
-
-
-function YH_Array(element, n) {
-    let cnt = 0;
-    let que = new Queue();
-    let stk = new Stack();
-    if (n<1) {
-        return undefined;
-    }
-    que.enqueue(element);
-    console.log(que.print());
-    while (que.size() != n) {
-        cnt = que.size();
-        for(let i=1; i<=cnt; i++) {
-            if (i==1) { 
-                que.enqueue(que.head()); 
-                que.dequeue();
-                stk.push(element);
-            }
-            else{               
-                que.enqueue(que.head()+stk.top()); 
-                stk.push(que.dequeue());
-            }                     
-        }
-        que.enqueue(element);
-        console.log(que.print());
-    }
-}   
+//console.log(fib(10));
 
 function YH(count){
     let newlist = new Queue();
@@ -261,22 +232,20 @@ function YH(count){
     oldlist.enqueue(1);
     while(count - 2 != 0){
         newlist.enqueue(1);
-        for(let i = 1;i < oldlist.size();i++){
-            newlist.enqueue(oldlist.dequeue()+oldlist.head());
+        let num = oldlist.size();
+        for(let i = 1;i < num;i++){
+            newlist.enqueue(oldlist.dequeue() + oldlist.head());
         }
         newlist.enqueue(1);
         console.log(newlist.print());
         oldlist.clear();
-        for(let l = 0;l<=newlist.size();l++){
+        num = newlist.size();
+        for(let l = 0;l<num;l++){
             oldlist.enqueue(newlist.dequeue());
         }
-        console.log('(-----');
-        console.log(oldlist.print());
-        console.log('-----)');
         newlist.clear();
         count -= 1;
     }
 }
-//YH_Array(1,5);
 
-YH(5);
+YH(13);
